@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
@@ -27,13 +26,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-//                        .requestMatchers("/").permitAll()
                         .requestMatchers("/","login**", "/error", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(AbstractHttpConfigurer::disable)
-//                .formLogin(withDefaults())
-//                .oauth2Login(withDefaults());
                 .logout(l -> l
                         .logoutSuccessUrl("/").permitAll()
                 )
@@ -61,4 +57,5 @@ public class WebSecurityConfig {
             return oidcUser;
         };
     }
+
 }
