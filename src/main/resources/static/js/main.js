@@ -25,3 +25,20 @@ app.config.globalProperties.$http = axios;
 app.use(vuetify);
 
 app.mount('#app');
+
+import { createApp } from 'vue';
+import App from './pages/App.vue';
+import vuetify from './plugins/vuetify';
+import axios from './plugins/axios';
+import { connect } from './utils/ws';
+
+if (frontendData.profile) {
+    connect();
+}
+
+const app = createApp(App);
+
+app.config.globalProperties.$http = axios;
+
+app.use(vuetify);
+app.mount('#app');
